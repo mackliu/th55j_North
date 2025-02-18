@@ -1,0 +1,19 @@
+body{
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.social img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    margin:5px 10px;
+}
+
+.local img{
+    width:16px;
+    height:16px;
+    object-fit: unset;
+}

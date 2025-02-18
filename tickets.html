@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap.css">
+    <script src="./jquery.js"></script>
+    <script src="./bootstrap.js"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img src="./img/logo.jpg" style="width: 50px;height: auto;">
+        <a class="navbar-brand" href="">購票</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="home.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="news.html">News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="business.html">Business</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="tickets.html">Tickets</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="d-flex justify-content-center mt-5">
+        <form class="card" action="tickets.php" method="post" style="width: 500px;">
+            <div class="card-body">
+                <div class="row">
+                    <p class="col">
+                        <label for="firstname">First name</label>
+                        <input type="text" class="form-control" name="firstname" id="firstname">
+                    </p>
+                    <p class="col">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" name="lastname" id="lastname">
+                    </p>
+                </div>
+
+                <p class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="phone">
+                </p>
+                <p class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" name="password" id="password">
+                </p>
+                <p class="form-group">
+                    <label for="verify_image">驗證碼</label>
+                    <input type="text" class="form-control" name="verify_image" id="verify_image" disabled>
+                    <input type="text" class="form-control" name="verify_ans" id="verify_ans" hidden>
+                </p>
+                <p class="form-group">
+                    <label for="verify">Verification</label>
+                    <input type="text" class="form-control" name="verify" id="verify">
+                </p>
+                <p class="btn-group">
+                    <span onclick="location.reload()" class="btn btn-danger">Reset</span>
+                    <input type="submit" class="btn btn-success" value="Submit">
+                </p>
+            </div>
+        </form>
+    </div>
+
+
+    <footer class="social d-flex flex-column justify-content-center align-items-center fixed-bottom pb-2">
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="./facebook.png" alt="">
+            <img src="./google.png" alt="">
+            <img src="./ig.png" alt="">
+        </div>
+        Copyright &copy; 2024 FIBEX All Rights Reserved
+    </footer>
+    <script>
+        let verify = "";
+        let verify_ans = document.getElementById("verify_ans");
+        let verify_image = document.getElementById("verify_image");
+        // console.log(verify)
+        verify = String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10));
+        verify_image.value = verify;
+
+        let verify_arr = verify.split(""); // 會變成陣列 []
+        let answer = verify_arr.sort().join(""); // 用sort排序之後，join("") 將陣列轉回字串
+        console.log(answer)
+
+        verify_ans.value = answer; // 儲存正確密碼的地方
+
+    </script>
+</body>
+
+
+</html>
