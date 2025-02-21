@@ -29,50 +29,54 @@
             <a id="tickets" class="nav-link" href="tickets.html">Tickets</a>
           </li>
           <li class="nav-item">
-            <a id="search" class="nav-link" href="search.html">Search</a>
+            <a id="search" class="nav-link" href="searcg.html">Search</a>
           </li>
         </ul>
       </nav>
-
+    <h2 class="text-center">查詢結果</h2>
     <div class="d-flex justify-content-center mt-5">
-        <form class="card" action="tickets.php" method="post" style="width: 500px;">
-            <div class="card-body">
-                <div class="row">
-                    <p class="col">
-                        <label for="firstname">First name</label>
-                        <input type="text" class="form-control" name="firstname" id="firstname">
-                    </p>
-                    <p class="col">
-                        <label for="lastname">Last name</label>
-                        <input type="text" class="form-control" name="lastname" id="lastname">
-                    </p>
-                </div>
+        <?php
+          $dsn = "mysql:host=localhost;dbname=th55_north;charset=utf8";
+          $pdo = new PDO($dsn,"root","");
+          
+          $sql=" select * from `tickets` where "; 
+          
+          $tmp=[];
+          if(!empty($_POST['firstname'])){
+            $tmp[]= " `firstname` = '".$_POST['firstname']."'";
+          }
 
-                <p class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control" name="phone" id="phone">
-                </p>
-                <p class="form-group">
-                    <label for="password">Password</label>
-                    <input type="text" class="form-control" name="password" id="password">
-                </p>
-                <p class="form-group">
-                    <label for="verify_image">驗證碼</label>
-                    <input type="text" class="form-control" name="verify_image" id="verify_image" disabled>
-                    <input type="text" class="form-control" name="verify_ans" id="verify_ans" hidden>
-                </p>
-                <p class="form-group">
-                    <label for="verify">Verification</label>
-                    <input type="text" class="form-control" name="verify" id="verify">
-                </p>
-                <p class="btn-group">
-                    <span onclick="location.reload()" class="btn btn-danger mx-2">Reset</span>
-                    <input type="submit" class="btn btn-success" value="Submit">
-                </p>
-            </div>
-        </form>
+          if(!empty($_POST['lastname'])){
+            $tmp[]= " `lastname` = '".$_POST['lastname']."'";
+          }
+
+          if(!empty($_POST['phone'])){
+            $tmp[]= " `phone` = '".$_POST['phone']."'";
+          }
+
+          $sql .= implode(" AND ",$tmp);
+         // echo $sql;
+         ?>
+          <table class="table table-bordered text-center w-50">
+            <tr>
+              <td>First name</td>
+              <td>Last name</td>
+              <td>Phone</td>
+            </tr>
+         <?php
+          $rows=$pdo->query($sql)->fetchAll();
+          foreach($rows as $row):
+            ?>
+            <tr>
+              <td><?=$row['firstname'];?></td>
+              <td><?=$row['lastname'];?></td>
+              <td><?=$row['phone'];?></td>
+            </tr>
+          <?php
+          endforeach;
+        ?>
+      </table>
     </div>
-
 
     <footer class="d-flex flex-column justify-content-center align-items-center fixed-bottom pb-2">
         <div id="share-info" class="social d-flex justify-content-center align-items-center" >
