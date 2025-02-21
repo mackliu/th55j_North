@@ -4,60 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="./jquery.js"></script>
-    <link rel="stylesheet" href="./bootstrap.css">
-    <script src="./bootstrap.js"></script>
-    <link rel="stylesheet" href="./index.css">
+    <title>2025國際交響樂團演奏會(ISOC)</title>
+    <script src="./library/jquery.js"></script>
+    <link rel="stylesheet" href="./library/bootstrap.css">
+    <script src="./library/bootstrap.js"></script>
+    <link rel="stylesheet" href="./library/index.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <img src="./img/logo.jpg" style="width: 50px;height: auto;">
-        <a class="navbar-brand" href="">商務</a>
+        <img id="logo" src="./img/logo.jpg" style="width: 50px;height: auto;">
+        <a class="navbar-brand" href="">首頁</a>
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
-                <a class="nav-link" href="home.html">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="news.html">News</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="business.html">Business</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="tickets.html">Tickets</a>
-            </li>
+          <li class="nav-item active">
+            <a id="home" class="nav-link" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a id="news" class="nav-link" href="news.html">News</a>
+          </li>
+          <li class="nav-item">
+            <a id="performance" class="nav-link" href="performance.html">Performance</a>
+          </li>
+          <li class="nav-item">
+            <a id="tickets" class="nav-link" href="tickets.html">Tickets</a>
+          </li>
         </ul>
-    </nav>
-    <div class="container d-flex justify-content-between align-items-center mt-3">
-        <!-- 設計展資訊區 -->
+      </nav>
+    <div id="performance-information" class="container d-flex justify-content-between align-items-center mt-3">
+        <!-- 表演資訊區 -->
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="./image_1.jfif" alt="" style="height: 250px;">
+            <img class="card-img-top" src="./img/image_1.jpg" alt="" style="height: 250px;">
             <div class="card-body">
                 <h5 class="card-title">設計1</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet.</p>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="./image_2.jfif" alt="" style="height: 250px;">
+            <img class="card-img-top" src="./img/image_2.jpg" alt="" style="height: 250px;">
             <div class="card-body">
                 <h5 class="card-title">設計2</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet.</p>
             </div>
         </div>
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="./image_3.jfif" alt="" style="height: 250px;">
+            <img class="card-img-top" src="./img/image_3.jpg" alt="" style="height: 250px;">
             <div class="card-body">
                 <h5 class="card-title">設計3</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet.</p>
             </div>
         </div>
     </div>
-    <div class="container d-flex justify-content-between align-items-center mt-3">
+    <div id="portfolio" class="container d-flex justify-content-between align-items-center mt-3">
         <!-- 作品介紹區 -->
         <div class="card" style="width: 18rem;max-height: 400px;overflow: auto;">
-            <img class="card-img-top" src="./image_1.jfif" alt="" style="height: 250px;">
+            <img class="card-img-top" src="./img/image_1.jpg" alt="" style="height: 250px;">
             <div class="card-body">
                 <h5 class="card-title">設計1</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet.
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="card" style="width: 18rem;max-height: 400px;overflow: auto;">
-            <img class="card-img-top" src="./image_2.jfif" alt="" style="height: 250px;">
+            <img class="card-img-top" src="./img/image_2.jpg" alt="" style="height: 250px;">
             <div class="card-body">
                 <h5 class="card-title">設計2</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet.
@@ -95,7 +95,7 @@
             </div>
         </div>
         <div class="card" style="width: 18rem;max-height: 400px;overflow: auto;">
-            <img class="card-img-top" src="./image_3.jfif" alt="" style="height: 250px;">
+            <img class="card-img-top" src="./img/image_3.jpg" alt="" style="height: 250px;">
             <div class="card-body">
                 <h5 class="card-title">設計3</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet.
@@ -115,13 +115,15 @@
         </div>
     </div>
     <footer class="d-flex flex-column justify-content-center align-items-center fixed-bottom pb-2">
-        <div class="social d-flex justify-content-center align-items-center">
-            <img src="./facebook.png" alt="">
-            <img src="./google.png" alt="">
-            <img src="./ig.png" alt="">
+        <div id="share-info" class="social d-flex justify-content-center align-items-center" >
+          <img id="fb" src="./img/facebook.png" alt="">
+          <img id="google" src="./img/google.png" alt="">
+          <img id="ig" src="./img/ig.png" alt="">
         </div>
+      <div id="footer">
         Copyright &copy; 2024 FIBEX All Rights Reserved
-    </footer>
+      </div>
+      </footer>
    <script>
 
         function changeText(e){

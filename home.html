@@ -4,45 +4,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./bootstrap.css">
-    <script src="./jquery.js"></script>
-    <script src="./bootstrap.js"></script>
-  <link rel="stylesheet" href="./index.css">
+  <title id="site-title">2025國際交響樂團演奏會(ISOC)</title>
+  <script src="./library/jquery.js"></script>
+  <link rel="stylesheet" href="./library/bootstrap.css">
+  <script src="./library/bootstrap.js"></script>
+  <link rel="stylesheet" href="./library/index.css">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light px-0">
-    <img src="./img/logo.jpg" style="width: 50px;height: auto;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img id="logo" src="./img/logo.jpg" style="width: 50px;height: auto;">
     <a class="navbar-brand" href="">首頁</a>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="home.html">Home</a>
+        <a id="home" class="nav-link" href="home.html">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="news.html">News</a>
+        <a id="news" class="nav-link" href="news.html">News</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="business.html">Business</a>
+        <a id="performance" class="nav-link" href="performance.html">Performance</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="tickets.html">Tickets</a>
+        <a id="tickets" class="nav-link" href="tickets.html">Tickets</a>
       </li>
     </ul>
   </nav>
   <main class="p-5">
   <!--設定輪播圖片的區塊大小為w-75、置中mx-auto-->
-  <div id="slider" class="carousel slide w-50 m-auto" data-ride="carousel">
+  <div id="carousel" class="carousel slide w-50 m-auto" data-ride="carousel">
     <!--下方指標區-->
     <ol class="carousel-indicators">
       <!--第1個指標區塊-->
-      <li data-target="#slider" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel" data-slide-to="0" class="active"></li>
       <!--第2個指標區塊-->
-      <li data-target="#slider" data-slide-to="1"></li>
+      <li data-target="#carousel" data-slide-to="1"></li>
       <!--第3個指標區塊-->
-      <li data-target="#slider" data-slide-to="2"></li>
+      <li data-target="#carousel" data-slide-to="2"></li>
       <!--第4個指標區塊-->
-      <li data-target="#slider" data-slide-to="3"></li>
+      <li data-target="#carousel" data-slide-to="3"></li>
     </ol>
     <!--輪播內容區-->
     <div class="carousel-inner">
@@ -82,18 +82,18 @@
       </div>
     </div>
      <!--左指標器-->
-    <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
     </a>
     <!--右指標器-->
-    <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
   </div>
   <!--活動資訊區-->
-  <div class="w-75 mx-auto mt-4">
+  <div id="event-info" class="w-75 mx-auto mt-4">
     <h3>Event Info</h3>
     <article style="font-size: 20px;">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque rerum mollitia, dolorem est quibusdam dolores, alias tempora repellendus rem ex eligendi distinctio delectus blanditiis ut unde ipsam natus reprehenderit voluptate?
@@ -102,12 +102,14 @@
   </div>   
   </main>
   <footer class="d-flex flex-column justify-content-center align-items-center fixed-bottom pb-2">
-    <div class="social d-flex justify-content-center align-items-center" >
-      <img src="./facebook.png" alt="">
-      <img src="./google.png" alt="">
-      <img src="./ig.png" alt="">
+    <div id="share-info" class="social d-flex justify-content-center align-items-center" >
+      <img id="fb" src="./img/facebook.png" alt="">
+      <img id="google" src="./img/google.png" alt="">
+      <img id="ig" src="./img/ig.png" alt="">
     </div>
+  <div id="footer">
     Copyright &copy; 2024 FIBEX All Rights Reserved
+  </div>
   </footer>
 
 </body>
