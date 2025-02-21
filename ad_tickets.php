@@ -14,50 +14,55 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <img id="logo" src="./img/logo.jpg" style="width: 50px;height: auto;">
-        <a class="navbar-brand" href="">Search</a>
+        <a class="navbar-brand" href="">Admin Tickets</a>
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a id="home" class="nav-link" href="home.html">Home</a>
-          </li>
+        <!-- <li class="nav-item active">
+            <a id="home" class="nav-link" href="ad_home.html">Home</a>
+          </li> -->
           <li class="nav-item">
-            <a id="news" class="nav-link" href="news.html">News</a>
+            <a id="news" class="nav-link" href="ad_news.php">News</a>
           </li>
+          <!-- <li class="nav-item">
+            <a id="performance" class="nav-link" href="ad_performance.html">Performance</a>
+          </li> -->
           <li class="nav-item">
-            <a id="performance" class="nav-link" href="performance.html">Performance</a>
-          </li>
-          <li class="nav-item">
-            <a id="tickets" class="nav-link" href="tickets.html">Tickets</a>
-          </li>
-          <li class="nav-item">
-            <a id="search" class="nav-link" href="search.html">Search</a>
+            <a id="tickets" class="nav-link" href="ad_tickets.php">Tickets</a>
           </li>
         </ul>
       </nav>
 
-    <div class="d-flex justify-content-center mt-5">
-        <form class="card" action="result.php" method="post" style="width: 500px;">
-            <div class="card-body">
-                <div class="row">
-                    <p class="col">
-                        <label for="firstname">First name</label>
-                        <input type="text" class="form-control" name="firstname" id="firstname">
-                    </p>
-                    <p class="col">
-                        <label for="lastname">Last name</label>
-                        <input type="text" class="form-control" name="lastname" id="lastname">
-                    </p>
-                </div>
-
-                <p class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control" name="phone" id="phone">
-                </p>
-                <p class="btn-group">
-                    <span onclick="location.reload()" class="btn btn-danger mx-2">Reset</span>
-                    <input type="submit" class="btn btn-success" value="Submit">
-                </p>
-            </div>
-        </form>
+    <div class="d-flex justify-content-center flex-wrap mt-5 px-5">
+      <?php 
+          $dsn = "mysql:host=localhost;dbname=th55_north;charset=utf8";
+          $pdo = new PDO($dsn,"root","");
+          
+          $sql=" select * from `tickets`"; 
+          $rows=$pdo->query($sql)->fetchAll();
+    ?>
+        <table class="table table-bordered text-center w-50">
+            <tr>
+              <td>First name</td>
+              <td>Last name</td>
+              <td>Phone</td>
+              <td>manage</td>
+            </tr>
+         <?php
+          $rows=$pdo->query($sql)->fetchAll();
+          foreach($rows as $row):
+            ?>
+            <tr>
+              <td><?=$row['firstname'];?></td>
+              <td><?=$row['lastname'];?></td>
+              <td><?=$row['phone'];?></td>
+              <td>
+                <button class=" m-1 btn btn-primary">編輯</button>
+                <button class=" m-1 btn btn-danger">刪除</button>
+              </td>
+            </tr>
+          <?php
+          endforeach;
+        ?>
+      </table>
     </div>
 
 
