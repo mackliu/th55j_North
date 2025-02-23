@@ -36,7 +36,7 @@
     <h2 class="text-center">查詢結果</h2>
     <div class="d-flex justify-content-center mt-5">
         <?php
-          $dsn = "mysql:host=localhost;dbname=th55_north;charset=utf8";
+          $dsn = "mysql:host=localhost;dbname=th55j_north;charset=utf8";
           $pdo = new PDO($dsn,"root","");
           
           $sql=" select * from `tickets` where "; 
