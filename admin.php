@@ -1,3 +1,19 @@
+<?php
+include "./db.php";
+
+//判斷表單是否有送出(isset())，且表單內容是否不為空(!empty())
+if(isset($_POST['event_info']) && !empty($_POST['event_info'])){
+  //撰寫更新資料的SQL語法
+  $sql="update `settings` 
+           set `value`='{$_POST['event_info']}' 
+         where `item`='event_info'";
+  //執行SQL語法
+  $pdo->exec($sql);
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,23 +32,28 @@
         <img id="logo" src="./img/logo.jpg" style="width: 50px;height: auto;">
         <a class="navbar-brand" href="">Admin</a>
         <ul class="navbar-nav mr-auto">
-        <!-- <li class="nav-item active">
-            <a id="home" class="nav-link" href="ad_home.html">Home</a>
-          </li> -->
-          <li class="nav-item">
-            <a id="news" class="nav-link" href="ad_news.php">News</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a id="performance" class="nav-link" href="ad_performance.html">Performance</a>
-          </li> -->
           <li class="nav-item">
             <a id="tickets" class="nav-link" href="ad_tickets.php">Tickets</a>
           </li>
         </ul>
       </nav>
 
-    <div class="d-flex justify-content-center flex-wrap mt-5 px-5">
-      <h2>選擇要調整的功能</h2>
+    <div class="d-flex  justify-content-center flex-wrap mt-5 px-5">
+      <div class="w-50 text-center">
+        <h2>活動資訊</h2>
+        <form action="?" method="post">
+          <div>
+            <?php 
+            $event_info=$pdo->query("select `value` from `settings` where `item`='event_info'")->fetch();
+            ?>
+            <textarea name="event_info" id="event_info" cols="80" rows="15"><?=$event_info['value'];?></textarea>
+          </div>
+          <div>
+            <button class="btn btn-primary mx-1">編輯</button>
+            <button class="btn btn-warning mx-1" type="reset">重置</button>
+          </div>
+        </form>
+      </div>
     </div>
 
 

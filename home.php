@@ -1,3 +1,6 @@
+<?php 
+include 'db.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,8 +99,16 @@
   <div id="event-info" class="w-75 mx-auto mt-4">
     <h3>Event Info</h3>
     <article style="font-size: 20px;">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque rerum mollitia, dolorem est quibusdam dolores, alias tempora repellendus rem ex eligendi distinctio delectus blanditiis ut unde ipsam natus reprehenderit voluptate?
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, cumque necessitatibus atque modi voluptate nostrum vitae sapiente! Sit perspiciatis magni sequi similique ipsa, itaque quam soluta nihil totam, voluptatem quo?
+      <?php
+      //撰寫取得資料的sql語法
+      $sql="select `value` from `settings` where `item`='event_info'";
+      
+      //執行SQL語法，並把結果指定給變數$event_info
+      $event_info=$pdo->query($sql)->fetch();
+      
+      //使用echo輸出活動資訊
+      echo $event_info['value'];
+      ?>
     </article>
   </div>   
   </main>
