@@ -6,9 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025國際交響樂團演奏會(ISOC)</title>
     <script src="./library/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="./library/bootstrap.css">
     <script src="./library/bootstrap.js"></script>
     <link rel="stylesheet" href="./library/index.css">
+    <style>
+    #digit-container {
+      border: 1px solid #ccc;
+      min-height: 50px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    #digit-container span,
+    #dropzone span {
+      display: inline-block;
+      width: 40px;
+      margin: 5px;
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #000;
+      background-color: #f5f5f5;
+      cursor: move;
+    }
+    #dropzone {
+      border: 1px dashed #ccc;
+      min-height: 60px;
+      padding: 10px;
+      margin-bottom: 10px;
+      /* 讓已拖進來的數字可用 Flex 方式排列，或直接用 block 排列也行 */
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    </style>
 </head>
 
 <body>
@@ -34,7 +65,7 @@
         </ul>
       </nav>
 
-    <div class="d-flex justify-content-center mt-5">
+      <div class="d-flex justify-content-center mt-5">
         <form class="card" action="tickets.php" method="post" style="width: 500px;">
             <div class="card-body">
                 <div class="row">
@@ -56,15 +87,17 @@
                     <label for="password">Password</label>
                     <input type="text" class="form-control" name="password" id="password">
                 </p>
-                <p class="form-group">
-                    <label for="verify_image">驗證碼</label>
-                    <input type="text" class="form-control" name="verify_image" id="verify_image" disabled>
-                    <input type="text" class="form-control" name="verify_ans" id="verify_ans" hidden>
-                </p>
-                <p class="form-group">
-                    <label for="verify">Verification</label>
-                    <input type="text" class="form-control" name="verify" id="verify">
-                </p>
+                <p>請將下列 4 個數字 (不重複) 拖到驗證區，並可在驗證區自由拖拉改變順序</p>
+                <div id="digit-container"></div>
+        
+                <!-- 驗證區：使用 sortable 來允許排序 -->
+                <label>驗證區（拖過來之後可在此區重新調整順序）</label>
+                <div id="dropzone"></div>
+                
+                <!-- 隱藏欄位：記錄使用者在驗證區的最終順序 -->
+                <input type="hidden" name="verify" id="verify">
+                <!-- 隱藏欄位：儲存正確答案（已排序好的字串） -->
+                <input type="hidden" name="verify_ans" id="verify_ans">
                 <p class="btn-group">
                     <span onclick="location.reload()" class="btn btn-danger mx-2">Reset</span>
                     <input type="submit" class="btn btn-success" value="Submit">
@@ -85,19 +118,74 @@
       </div>
       </footer>
     <script>
-        let verify = "";
-        let verify_ans = document.getElementById("verify_ans");
-        let verify_image = document.getElementById("verify_image");
-        // console.log(verify)
-        verify = String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10));
-        verify_image.value = verify;
+   // 產生 n 個不重複的亂數 (0~9)
+   function generateUniqueDigits(count) {
+      let digits = [];
+      while (digits.length < count) {
+        let d = Math.floor(Math.random() * 10);
+        if (!digits.includes(d)) {
+          digits.push(d);
+        }
+      }
+      return digits; 
+    }
 
-        let verify_arr = verify.split(""); // 會變成陣列 []
-        let answer = verify_arr.sort().join(""); // 用sort排序之後，join("") 將陣列轉回字串
-        console.log(answer)
+    // 將驗證區的數字 (span) 順序，更新到 #verify 這個 hidden input
+    function updateVerifyInput() {
+      const arr = [];
+      $("#dropzone span").each(function(){
+        arr.push($(this).attr("data-digit"));
+      });
+      $("#verify").val(arr.join(""));
+    }
 
-        verify_ans.value = answer; // 儲存正確密碼的地方
+    $(function(){
 
+      // 1. 產生 4 個不重複的亂數
+      const digits = generateUniqueDigits(4); // e.g. [7, 3, 9, 2]
+      // 2. 計算正確答案(從小到大排序後的字串)，存到 #verify_ans
+      const sortedAnswer = digits.slice().sort().join(""); // e.g. "2379"
+      $("#verify_ans").val(sortedAnswer);
+
+      // 3. 建立對應的<span>放到 #digit-container
+      const $container = $("#digit-container");
+      $.each(digits, function(i, d){
+        const $span = $("<span></span>")
+                      .addClass("draggable-digit")
+                      .attr("data-digit", d)
+                      .text(d);
+        $container.append($span);
+      });
+
+      // 4. 設定「待選區」內的數字可拖曳，並且連結到 #dropzone (sortable)
+      //    helper: "original" 會直接把原來那個 <span> 移動過去，不會再留在原位
+      $(".draggable-digit").draggable({
+        connectToSortable: "#dropzone",
+        helper: "original",  
+        revert: "invalid"   
+      });
+
+      // 5. 設定 #dropzone 為 sortable 區域，可以自由拖拉改變順序
+      $("#dropzone").sortable({
+        // 使用者有任何排序變動 (包含首次拖進來) 都會觸發這個事件
+        update: function(e, ui) {
+          updateVerifyInput();
+        }
+      });
+
+      // 表單若要在前端驗證 (可選)
+      // 也可以在 tickets.php 後端用 `$_POST['verify']` 與 `$_POST['verify_ans']` 來比對
+      $("form").on("submit", function(e){
+        const userInput = $("#verify").val();
+        const correctAns = $("#verify_ans").val();
+        if (userInput === correctAns) {
+          alert("驗證碼正確，表單送出！");
+        } else {
+          alert("驗證碼錯誤，請再檢查是否由小到大排序喔！");
+          e.preventDefault(); // 阻止送出，可提示使用者重新排序
+        }
+      });
+    });
     </script>
 </body>
 
