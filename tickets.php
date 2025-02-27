@@ -18,10 +18,10 @@
     if($_POST["verify"] != $_POST["verify_ans"]){
         // 當使用者輸入的驗證碼跟正確的驗證碼不相符的時候
         echo "<script>alert('驗證碼是錯誤的')</script>";
-        echo "<script>location.href='home.html'</script>";
+        echo "<script>location.href='home.php'</script>";
     }else{
         $insert_sql = "INSERT INTO `tickets` (`id`, `firstname`, `lastname`, `phone`, `password`) VALUES (NULL, '$firstname', '$lastname', '$phone', '$password');";
         $pdo->query($insert_sql);
-        echo "<script>location.href='home.html'</script>";
+        echo "<script>location.href='home.php'</script>";
     }
 

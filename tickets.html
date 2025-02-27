@@ -120,13 +120,17 @@
     <script>
    // 產生 n 個不重複的亂數 (0~9)
    function generateUniqueDigits(count) {
-      let digits = [];
+      let digits = [];  //宣告一個空陣列
+
+      //使用迴圈來逐一加入數字
       while (digits.length < count) {
-        let d = Math.floor(Math.random() * 10);
-        if (!digits.includes(d)) {
-          digits.push(d);
+        let d = Math.floor(Math.random() * 10); //產生一個0~9的數字
+        if (!digits.includes(d)) { //如果陣列中沒有這個數字
+          digits.push(d);  //就把這個數字加入陣列
         }
       }
+
+      //回傳這個陣列
       return digits; 
     }
 
@@ -134,8 +138,10 @@
     function updateVerifyInput() {
       const arr = [];
       $("#dropzone span").each(function(){
+        // 逐一取出每個 span 的 data-digit 值，並加入 arr 陣列
         arr.push($(this).attr("data-digit"));
       });
+      // 將 arr 陣列轉成字串，存到 #verify 這個 hidden input
       $("#verify").val(arr.join(""));
     }
 
@@ -175,7 +181,7 @@
 
       // 表單若要在前端驗證 (可選)
       // 也可以在 tickets.php 後端用 `$_POST['verify']` 與 `$_POST['verify_ans']` 來比對
-      $("form").on("submit", function(e){
+      /* $("form").on("submit", function(e){
         const userInput = $("#verify").val();
         const correctAns = $("#verify_ans").val();
         if (userInput === correctAns) {
@@ -184,7 +190,7 @@
           alert("驗證碼錯誤，請再檢查是否由小到大排序喔！");
           e.preventDefault(); // 阻止送出，可提示使用者重新排序
         }
-      });
+      }); */
     });
     </script>
 </body>
