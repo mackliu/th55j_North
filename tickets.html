@@ -87,13 +87,11 @@
                     <label for="password">Password</label>
                     <input type="text" class="form-control" name="password" id="password">
                 </p>
-                <p>請將下列 4 個數字 (不重複) 拖到驗證區，並可在驗證區自由拖拉改變順序</p>
-                <div id="digit-container"></div>
-        
+
+                <div id="digit-container"></div>        
                 <!-- 驗證區：使用 sortable 來允許排序 -->
-                <label>驗證區（拖過來之後可在此區重新調整順序）</label>
-                <div id="dropzone"></div>
-                
+                   <label>Verification</label>
+                   <div id="dropzone"></div>
                 <!-- 隱藏欄位：記錄使用者在驗證區的最終順序 -->
                 <input type="hidden" name="verify" id="verify">
                 <!-- 隱藏欄位：儲存正確答案（已排序好的字串） -->
@@ -118,7 +116,7 @@
       </div>
       </footer>
     <script>
-   // 產生 n 個不重複的亂數 (0~9)
+   // 這個函式用來產生 n 個不重複的亂數 (0~9)
    function generateUniqueDigits(count) {
       let digits = [];  //宣告一個空陣列
 
@@ -134,7 +132,7 @@
       return digits; 
     }
 
-    // 將驗證區的數字 (span) 順序，更新到 #verify 這個 hidden input
+    // 這個函式會將驗證區的數字 (span) 順序，更新到 #verify 這個 hidden input
     function updateVerifyInput() {
       const arr = [];
       $("#dropzone span").each(function(){
@@ -145,37 +143,41 @@
       $("#verify").val(arr.join(""));
     }
 
-    $(function(){
+    init(); //呼叫 init 函式
+
+  //這個函式會在網頁載入完成後馬上執行
+  function init(){
 
       // 1. 產生 4 個不重複的亂數
       const digits = generateUniqueDigits(4); // e.g. [7, 3, 9, 2]
       // 2. 計算正確答案(從小到大排序後的字串)，存到 #verify_ans
       const sortedAnswer = digits.slice().sort().join(""); // e.g. "2379"
+      // 3. 將正確答案存到 #verify_ans 這個 hidden input
       $("#verify_ans").val(sortedAnswer);
 
-      // 3. 建立對應的<span>放到 #digit-container
-      const $container = $("#digit-container");
+      // 4. 建立對應的<span>放到 #digit-container
+      const container = $("#digit-container");
       $.each(digits, function(i, d){
-        const $span = $("<span></span>")
+        const span = $("<span></span>")
                       .addClass("draggable-digit")
                       .attr("data-digit", d)
                       .text(d);
-        $container.append($span);
+        container.append(span);
       });
 
-      // 4. 設定「待選區」內的數字可拖曳，並且連結到 #dropzone (sortable)
+      // 5. 設定「待選區」內的數字可拖曳，並且連結到 #dropzone (sortable)
       //    helper: "original" 會直接把原來那個 <span> 移動過去，不會再留在原位
       $(".draggable-digit").draggable({
         connectToSortable: "#dropzone",
         helper: "original",  
-        revert: "invalid"   
+        revert: "invalid"   // 若拖曳到不合法的地方，會自動回到原位
       });
 
-      // 5. 設定 #dropzone 為 sortable 區域，可以自由拖拉改變順序
+      // 6. 設定 #dropzone 為 sortable 區域，可以自由拖拉改變順序
       $("#dropzone").sortable({
-        // 使用者有任何排序變動 (包含首次拖進來) 都會觸發這個事件
+        // 使用者有任何排序變動 (包含首次拖進來) 都會觸發update這個事件
         update: function(e, ui) {
-          updateVerifyInput();
+          updateVerifyInput();  //當排序變動時，執行updateVerifyInput() 來更新 #verify 這個 hidden input
         }
       });
 
@@ -191,7 +193,7 @@
           e.preventDefault(); // 阻止送出，可提示使用者重新排序
         }
       }); */
-    });
+    };
     </script>
 </body>
 
