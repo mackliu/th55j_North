@@ -46,22 +46,5 @@
         Copyright &copy; 2024 FIBEX All Rights Reserved
       </div>
       </footer>
-    <script>
-        let verify = "";
-        let verify_ans = document.getElementById("verify_ans");
-        let verify_image = document.getElementById("verify_image");
-        // console.log(verify)
-        verify = String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10));
-        verify_image.value = verify;
-
-        let verify_arr = verify.split(""); // 會變成陣列 []
-        let answer = verify_arr.sort().join(""); // 用sort排序之後，join("") 將陣列轉回字串
-        console.log(answer)
-
-        verify_ans.value = answer; // 儲存正確密碼的地方
-
-    </script>
 </body>
-
-
 </html>
