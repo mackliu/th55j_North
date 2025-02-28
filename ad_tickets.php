@@ -46,6 +46,8 @@ include 'db.php';
                     <td>manage</td>
                 </tr>
                 <?php 
+                    /* $dsn = "mysql:host=localhost;dbname=th55j_north;charset=utf8";
+                    $pdo = new PDO($dsn,"root",""); */
                 $tickets=$pdo->query("select * from `tickets`")->fetchAll();
                 foreach($tickets as $ticket):
                 ?>
@@ -78,7 +80,7 @@ include 'db.php';
 
     $(".btn-edit").on("click",function(){
         let id=$(this).data("id");
-        console.log(id);
+       //console.log(id);
         $.get("edit_ticket.php",{id},function(modal){
             $("#modal").html(modal);
             $("#EditModal").modal("show");

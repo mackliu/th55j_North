@@ -20,7 +20,8 @@ include 'db.php';
     <a class="navbar-brand" href="">首頁</a>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a id="home" class="nav-link" href="home.html">Home</a>
+        <!-- <a id="home" class="nav-link" href="home.html">Home</a> -->
+        <a id="home" class="nav-link" href="home.php">Home</a>
       </li>
       <li class="nav-item">
         <a id="news" class="nav-link" href="news.html">News</a>
@@ -107,7 +108,7 @@ include 'db.php';
       $event_info=$pdo->query($sql)->fetch();
       
       //使用echo輸出活動資訊
-      echo $event_info['value'];
+      echo nl2br($event_info['value']);
       ?>
     </article>
   </div>   
