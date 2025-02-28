@@ -29,33 +29,43 @@
             <a id="tickets" class="nav-link" href="tickets.html">Tickets</a>
           </li>
           <li class="nav-item">
-            <a id="search" class="nav-link" href="searcg.html">Search</a>
+            <a id="search" class="nav-link" href="search.html">Search</a>
           </li>
         </ul>
       </nav>
     <h2 class="text-center">查詢結果</h2>
     <div class="d-flex justify-content-center mt-5">
         <?php
-          $dsn = "mysql:host=localhost;dbname=th55j_north;charset=utf8";
-          $pdo = new PDO($dsn,"root","");
+          /* $dsn = "mysql:host=localhost;dbname=th55j_north;charset=utf8";
+          $pdo = new PDO($dsn,"root",""); */
+          include "db.php";
           
           $sql=" select * from `tickets` where "; 
-          
+
           $tmp=[];
+          /* if(!empty($_POST['firstname'])){
+            $tmp[]= " `firstname` = '{$_POST['firstname']}'";
+          } */
           if(!empty($_POST['firstname'])){
-            $tmp[]= " `firstname` = '".$_POST['firstname']."'";
+            $tmp[]= " `firstname` like '%{$_POST['firstname']}%'";
           }
 
+          /* if(!empty($_POST['lastname'])){
+            $tmp[]= " `lastname` = '{$_POST['lastname'}'";
+          } */
           if(!empty($_POST['lastname'])){
-            $tmp[]= " `lastname` = '".$_POST['lastname']."'";
+            $tmp[]= " `lastname` like '%{$_POST['lastname']}%'";
           }
 
+          /* if(!empty($_POST['phone'])){
+            $tmp[]= " `phone` = '{$_POST['phone']}'";
+          } */
           if(!empty($_POST['phone'])){
-            $tmp[]= " `phone` = '".$_POST['phone']."'";
+            $tmp[]= " `phone` like '%{$_POST['phone']}%'";
           }
 
-          $sql .= implode(" AND ",$tmp);
-         // echo $sql;
+          $sql .= join(" AND ",$tmp);
+          //echo $sql;
          ?>
           <table class="table table-bordered text-center w-50">
             <tr>
@@ -88,21 +98,7 @@
         Copyright &copy; 2024 FIBEX All Rights Reserved
       </div>
       </footer>
-    <script>
-        let verify = "";
-        let verify_ans = document.getElementById("verify_ans");
-        let verify_image = document.getElementById("verify_image");
-        // console.log(verify)
-        verify = String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10)) + String(Math.floor(Math.random() * 10));
-        verify_image.value = verify;
 
-        let verify_arr = verify.split(""); // 會變成陣列 []
-        let answer = verify_arr.sort().join(""); // 用sort排序之後，join("") 將陣列轉回字串
-        console.log(answer)
-
-        verify_ans.value = answer; // 儲存正確密碼的地方
-
-    </script>
 </body>
 
 
